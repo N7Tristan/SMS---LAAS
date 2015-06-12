@@ -326,6 +326,11 @@ int LabToolCaptureDevice::maxNumAnalogSignals()
     return MaxAnalogSignals;
 }
 
+int LabToolCaptureDevice::maxNumSelfmixedSignals()
+{
+    return MaxSelfmixedSignals;
+}
+
 QList<double> LabToolCaptureDevice::supportedVPerDiv()
 {
     if (mSupportedVPerDiv.size() == 0) {
@@ -1267,6 +1272,37 @@ void LabToolCaptureDevice::setAnalogData(int signalId, QVector<double> data)
     }
 }
 
+QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId)
+{
+    QVector<double>* data = NULL;
+
+    if (signalId < MaxSelfmixedSignals) {
+        data = mAnalogSignals[signalId];
+    }
+
+    return data;
+}
+
+void LabToolCaptureDevice::setSelfmixedData(int signalId, QVector<double> data) //peut être faire le traitement ici
+{
+    if (signalId < MaxSelfmixedSignals) {
+
+        if (mSelfmixedSignals[signalId] != NULL) {
+            delete mSelfmixedSignals[signalId];
+            mSelfmixedSignals[signalId] = NULL;
+        }
+
+        if (data.size() > 0) {
+            mEndSampleIdx = data.size()-1;
+
+            // Deallocation:
+            //   QVector will be deallocated either by this function or the destructor
+            //   as a part of deallocating mAnalogSignalData
+            mSelfmixedSignals[signalId] = new QVector<double>(data);
+        }
+    }
+}
+
 void LabToolCaptureDevice::clearSignalData()
 {
     deleteSignals();
@@ -1747,4 +1783,8 @@ void LabToolCaptureDevice::updateAnalogConfigData()
 
     // Specify how many digital signals are enabled
     common_header->numEnabledVADC = mAnalogSignalList.size();
+}
+
+void LabToolCaptureDevice::updateSelfmixedConfigData()
+{
 }

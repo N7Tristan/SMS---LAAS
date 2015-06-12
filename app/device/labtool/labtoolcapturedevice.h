@@ -135,6 +135,7 @@ private:
     quint8 *configData();
     void updateDigitalConfigData();
     void updateAnalogConfigData();
+    void updateSelfmixedConfigData();
 
 };
 
