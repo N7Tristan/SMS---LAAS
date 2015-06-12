@@ -525,7 +525,6 @@ QList<int> CaptureDevice::unusedSelfmixedIds()
 */
 void CaptureDevice::digitalTransitions(int signalId, QList<int> &list)
 {
-
     QVector<int>* data = digitalData(signalId);
     if (data != NULL && data->size() > 0) {
 

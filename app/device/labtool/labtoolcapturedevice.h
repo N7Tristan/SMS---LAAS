@@ -33,6 +33,7 @@ public:
     QList<int> supportedSampleRates();
     int maxNumDigitalSignals();
     int maxNumAnalogSignals();
+    int maxNumSelfmixedSignals();
     QList<double> supportedVPerDiv();
     bool supportsContinuousCapture() {return true;}
 
@@ -46,6 +47,8 @@ public:
     void setDigitalData(int signalId, QVector<int> data);
     QVector<double>* analogData(int signalId);
     void setAnalogData(int signalId, QVector<double> data);
+    QVector<double>* SelfmixedData(int signalId);
+    void setSelfmixedData(int signalId, QVector<double> data);
 
     void clearSignalData();
 
@@ -71,7 +74,8 @@ private:
 
     enum Constants {
         MaxDigitalSignals = 11,
-        MaxAnalogSignals = 2
+        MaxAnalogSignals = 2,
+        MaxSelfmixedSignals = 2
     };
 
     UiLabToolTriggerConfig* mTriggerConfig;
@@ -87,11 +91,14 @@ private:
     quint8* mData;
     QList<DigitalSignal> mLastUsedDigtalSignals;
     QList<AnalogSignal> mLastUsedAnalogSignals;
+    QList<SelfmixedSignal> mLastUsedSelfmixedSignals;
     int mLastUsedSampleRate;
 
     QVector<int>* mDigitalSignals[MaxDigitalSignals];
     QVector<double>* mAnalogSignals[MaxAnalogSignals];
     QVector<quint16>* mAnalogSignalData[MaxAnalogSignals];
+    QVector<double>* mSelfmixedSignals[MaxAnalogSignals];
+    QVector<quint16>* mSelfmixedSignalData[MaxAnalogSignals];
     QList<int>* mDigitalSignalTransitions[MaxDigitalSignals];
 
     QList<double> mSupportedVPerDiv;

@@ -261,7 +261,6 @@ QVector<double>* SimulatorCaptureDevice::selfmixedData(int signalId)
     if (signalId < MaxSelfmixedSignals) {
         data = mSelfmixedSignals[signalId];
     }
-
     return data;
 }
 
@@ -277,9 +276,6 @@ void SimulatorCaptureDevice::setSelfmixedData(int signalId, QVector<double> data
         if (data.size() > 0) {
             mEndSampleIdx = data.size();
 
-            // Deallocation:
-            //    Deleted by deleteSignalData() which is called by destructor
-            //    or clearSignalData()
             mSelfmixedSignals[signalId] = new QVector<double>(data);
         }
 
