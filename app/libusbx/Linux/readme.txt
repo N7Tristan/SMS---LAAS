@@ -1,0 +1,1 @@
+Place a pre-compiled static library named libusb-1.0.a in this directory. In Ubuntu this package can be retrieved by installing the package libusb-1.0-0-dev (`sudo apt-get install libusb-1.0-0-dev`), otherwise one can also download and compile from source from http://libusbx.org/ .
