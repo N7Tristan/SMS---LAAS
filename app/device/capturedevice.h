@@ -88,9 +88,9 @@ public:
     SelfmixedSignal* addSelfmixedSignal(int id);
     void removeSelfmixedSignal(SelfmixedSignal* s);
     QList<int> unusedSelfmixedIds();
-    QList<SelfmixedSignal*> SelfmixedSignals() {return mSelfmixedSignalList;}
+    QList<SelfmixedSignal*> selfmixedSignals() {return mSelfmixedSignalList;}
 
-    virtual QVector<double>* SelfmixedData(int signalId) = 0; //here are stocked values
+    virtual QVector<double>* selfmixedData(int signalId) = 0; //here are stocked values
     virtual void setSelfmixedData(int signalId, QVector<double> data) = 0;
 
     //others

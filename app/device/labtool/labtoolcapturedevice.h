@@ -47,7 +47,7 @@ public:
     void setDigitalData(int signalId, QVector<int> data);
     QVector<double>* analogData(int signalId);
     void setAnalogData(int signalId, QVector<double> data);
-    QVector<double>* SelfmixedData(int signalId);
+    QVector<double>* selfmixedData(int signalId);
     void setSelfmixedData(int signalId, QVector<double> data);
 
     void clearSignalData();
