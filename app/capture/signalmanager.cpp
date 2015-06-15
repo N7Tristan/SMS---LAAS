@@ -107,7 +107,27 @@ void SignalManager::saveSignalSettings(QSettings &settings, QDataStream &out)
                     out << *data;
                 }
             }
+            continue;
+        }
 
+        qDebug("qobject_cast");
+        UiSelfmixedSignal* ms = qobject_cast<UiSelfmixedSignal*>(s);
+        if (as != NULL) {
+            QList<SelfmixedSignal*> list = ms->addedSignals();
+
+            foreach(SelfmixedSignal* signal, list) {
+                settings.setArrayIndex(idx++);
+                settings.setValue("meta", signal->toSettingsString());
+
+                QVector<double>* data = device->selfmixedData(signal->id());
+                if (data != NULL) {
+                    out << SignalStartMagic;
+                    out << SignalSelfmixed;
+                    out << signal->id();
+                    out << data->size();
+                    out << *data;
+                }
+            }
             continue;
         }
 
@@ -117,10 +137,8 @@ void SignalManager::saveSignalSettings(QSettings &settings, QDataStream &out)
             settings.setArrayIndex(idx++);
             settings.setValue("meta", metaStr);
         }
-
     }
     settings.endArray();
-
 }
 
 /*!

@@ -57,6 +57,7 @@ signals:
     void digitalMeasurmentChanged(double start, double mid, double end,
                                 bool highLow, bool mActive);
     void analogMeasurmentChanged(QList<double>level, QList<double>pk, bool active);
+    void selfmixedMeasurmentChanged(QList<double>level, QList<double>pk, bool active);
     
 public slots:
 

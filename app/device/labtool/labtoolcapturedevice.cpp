@@ -1243,6 +1243,7 @@ void LabToolCaptureDevice::setDigitalData(int signalId, QVector<int> data)
 
 QVector<double>* LabToolCaptureDevice::analogData(int signalId)
 {
+    qDebug("analogData");
     QVector<double>* data = NULL;
 
     if (signalId < MaxAnalogSignals) {
@@ -1278,7 +1279,7 @@ QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId)
     QVector<double>* data = NULL;
 
     if (signalId < MaxSelfmixedSignals) {
-        data = mAnalogSignals[signalId];
+        data = mSelfmixedSignals[signalId];
     }
 
     return data;
@@ -1340,6 +1341,7 @@ void LabToolCaptureDevice::digitalTransitions(int signalId, QList<int> &list)
 
 void LabToolCaptureDevice::reconfigure(int sampleRate)
 {
+    qDebug("reconfigure");
     // Ignore if there is no ongoing capture as the reconfiguration
     // will take place the next time a capture is started
     if (!mRunningCapture) {

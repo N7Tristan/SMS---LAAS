@@ -426,16 +426,18 @@ SelfmixedSignal* CaptureDevice::addSelfmixedSignal(int id)
         //signal = new SelfmixedSignal(SelfmixedSignal::SelfmixedUsageCapture, id); -> ancien appel, il ne faut pas déranger
         // le hardware
         signal = new SelfmixedSignal();
+        qDebug("creation du signal ok");
 
+       // signal->setReconfigureListener(this);
 
-        //signal->setReconfigureListener(this);
-
-       /* mSelfmixedSignalList.append(signal);
+        mSelfmixedSignalList.append(signal);
         qSort(mSelfmixedSignalList.begin(), mSelfmixedSignalList.end(),
-              SelfmixedSignalLessThan);*/
+              SelfmixedSignalLessThan);
+        qDebug("ajout du signal à la liste des signaux");
 
         // adding a signal might require a reconfiguration
-        //reconfigure(); -> pour le self mixing la reconfiguration ne semble pas forcement
+        //reconfigure();
+
         //necessaire.
 
     } while(false);

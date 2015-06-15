@@ -473,7 +473,7 @@ void UiPlot::updateLayout() ///////////////////FAIRE LE TRAITEMENT ICI ??///////
     int yPos = mTimeAxis->height();
     int w = mCursor->minimumInfoWidth();
 
-
+    qDebug("test update1");
     // get the widest info width
     foreach(UiAbstractSignal* signal, mSignalManager->signalList()) {
 
@@ -483,7 +483,7 @@ void UiPlot::updateLayout() ///////////////////FAIRE LE TRAITEMENT ICI ??///////
             w = signal->minimumInfoWidth();
         }
     }
-
+    qDebug("test update2");
     // update info width part for all widgets
     mTimeAxis->setInfoWidth(w);
     mGrid->setInfoWidth(w);
