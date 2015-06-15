@@ -423,9 +423,6 @@ SelfmixedSignal* CaptureDevice::addSelfmixedSignal(int id)
         QList<int> unused = unusedAnalogIds();
         if (!unused.contains(id)) break;
 
-        // Deallocation:
-        //   AnalogSignal will be deallocated by removeAnalogSignal or
-        //   by the destructor.
         signal = new SelfmixedSignal(SelfmixedSignal::SelfmixedUsageCapture, id);
         signal->setReconfigureListener(this);
 

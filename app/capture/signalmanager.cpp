@@ -282,10 +282,10 @@ void SignalManager::addSelfmixedSignal(int id) //a modifier par la suite !!!
     do {
         if (device == NULL) break;
 
-        AnalogSignal* s = device->addAnalogSignal(id);
+        SelfmixedSignal* s = device->addSelfmixedSignal(id); // j'ai changé ici
         if (s == NULL) break;
 
-        addAnalogSignal(s);
+        addSelfmixedSignal(s);// et ici
 
     } while (false);
 
@@ -562,6 +562,29 @@ void SignalManager::addAnalogSignal(AnalogSignal* s)
         mSignalList.append(mAnalogSignalWidget);
     }
     mAnalogSignalWidget->addSignal(s);
+    signalsAdded();
+}
+
+void SignalManager::addSelfmixedSignal(SelfmixedSignal* s)
+{
+    if (mSelfmixedSignalWidget == NULL) {
+
+        mSelfmixedSignalWidget = new UiSelfmixedSignal(); //probleme ici
+
+
+        connect(mSelfmixedSignalWidget, SIGNAL(closed(UiAbstractSignal*)),
+                this, SLOT(closeSignal(UiAbstractSignal*)));
+
+        connect(mSelfmixedSignalWidget,
+                SIGNAL(measurmentChanged(QList<double>,QList<double>,bool)),
+                this,
+                SIGNAL(SelfmixedMeasurmentChanged(QList<double>,QList<double>,bool)));
+
+        connect(mSelfmixedSignalWidget, SIGNAL(triggerSet()), this, SLOT(handleSelfmixedTriggerSet()));
+
+        mSignalList.append(mSelfmixedSignalWidget);
+    }
+    mSelfmixedSignalWidget->addSignal(s);
     signalsAdded();
 }
 

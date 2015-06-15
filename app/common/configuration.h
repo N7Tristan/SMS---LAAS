@@ -90,6 +90,7 @@ private:
     QColor mTextColor;
     QColor mDigitalSignalColors[MaxDigitalColors];
     QColor mAnalogSignalColors[MaxAnalogColors];
+    QColor mSelfmixedSignalColors[MaxAnalogColors];
     QColor mAnalogGroundColors[MaxAnalogColors];
     QColor mCursorColors[MaxCursorColors];
     QColor mGridColor;
@@ -97,6 +98,8 @@ private:
     QColor mDigitalCableColors[MaxDigitalColors];
     QColor mAnalogInCableColors[MaxAnalogColors];
     QColor mAnalogOutCableColors[MaxAnalogColors];
+    QColor mSelfmixedInCableColors[MaxAnalogColors];
+    QColor mSelfmixedOutCableColors[MaxAnalogColors];
 };
 
 #endif // CONFIGURATION_H

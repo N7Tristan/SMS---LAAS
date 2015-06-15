@@ -25,6 +25,7 @@
 #include "uiabstractsignal.h"
 #include "uidigitalsignal.h"
 #include "uianalogsignal.h"
+#include "uiselfmixedsignal.h"
 
 #include "analyzer/uianalyzer.h"
 
@@ -42,6 +43,7 @@ public:
     void addDigitalSignal(int id);
     void addAnalogSignal(int id);
     void addSelfmixedSignal(int id);
+
     void addAnalyzer(UiAnalyzer* analyzer);
 
     void closeAllSignals(bool removeDeviceSignals);
@@ -65,6 +67,7 @@ private:
     enum {
         SignalDigital    = 1,
         SignalAnalog     = 2,
+        SignalSelmixed   = 3,
         SignalDataMagic  = 0xEA0102AE,
         SignalStartMagic = 0x000000EB
     };
@@ -81,6 +84,7 @@ private:
 
     void addDigitalSignal(DigitalSignal* s);
     void addAnalogSignal(AnalogSignal* s);
+    void addSelfmixedSignal(SelfmixedSignal* s);
 
 private slots:
     void closeSignal(UiAbstractSignal* s, bool removeDeviceSignal=true);
