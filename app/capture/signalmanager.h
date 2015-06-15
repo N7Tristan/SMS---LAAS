@@ -75,6 +75,7 @@ private:
     QList<UiAbstractSignal*> mSignalList;
 
     UiAnalogSignal* mAnalogSignalWidget;
+    UiSelfmixedSignal* mSelfmixedSignalWidget;
 
     QBitArray digitalSignalDataToBitArray(QVector<int>* data);
     QVector<int> bitArrayToDigitalSignal(QBitArray data);

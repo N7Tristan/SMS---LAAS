@@ -257,7 +257,7 @@ void Configuration::setAnalyzerColor(QColor &c)
 {
     mAnalyzerColor = c;
 }
-
+//DIGITAL
 /*!
     Returns the color of the cable for the digital signal with ID \a id.
 */
@@ -278,6 +278,8 @@ void Configuration::setDigitalCableColor(int id, QColor &c)
     mDigitalCableColors[ (id%MaxDigitalColors) ] = c;
 }
 
+
+//ANALOG
 /*!
     Returns the color of the cable for the analog input signal with ID \a id.
 */
@@ -318,6 +320,64 @@ void Configuration::setAnalogOutCableColor(int id, QColor &c)
     mAnalogOutCableColors[ (id%MaxAnalogColors) ] = c;
 }
 
+//SELFMIXED
+QColor Configuration::selfmixedInCableColor(int id)
+{
+    if (id < 0) id = 0;
+
+    return mSelfmixedInCableColors[ (id%MaxSelfmixedColors) ];
+}
+
+void Configuration::setSelfmixedInCableColor(int id, QColor &c)
+{
+    if (id < 0) id = 0;
+
+    mSelfmixedInCableColors[ (id%MaxSelfmixedColors) ] = c;
+}
+
+QColor Configuration::selfmixedOutCableColor(int id)
+{
+    if (id < 0) id = 0;
+
+    return mSelfmixedOutCableColors[ (id%MaxSelfmixedColors) ];
+}
+
+void Configuration::setSelfmixedOutCableColor(int id, QColor &c)
+{
+    if (id < 0) id = 0;
+
+    mSelfmixedOutCableColors[ (id%MaxSelfmixedColors) ] = c;
+}
+
+QColor Configuration::selfmixedSignalColor(int id)
+{
+    if (id < 0) id = 0;
+
+    return mSelfmixedSignalColors[ (id%MaxAnalogColors) ];
+}
+
+void Configuration::setSelfmixedSignalColor(int id, QColor &c)
+{
+    if (id < 0) id = 0;
+
+    mSelfmixedSignalColors[ (id%MaxSelfmixedColors) ] = c;
+}
+
+QColor Configuration::selfmixedGroundColor(int id)
+{
+    if (id < 0) id = 0;
+
+    return mSelfmixedGroundColors[ (id%MaxSelfmixedColors) ];
+}
+
+void Configuration::setSelfmixedGroundColor(int id, QColor &c)
+{
+    if (id < 0) id = 0;
+
+    mSelfmixedGroundColors[ (id%MaxSelfmixedColors) ] = c;
+}
+
+/////////////////////////////////////////////////////////////////////////
 /*!
     Returns the color used as background color for widgets surrounding the
     signal plot.
@@ -352,6 +412,15 @@ void Configuration::loadLightScheme()
         mAnalogGroundColors[i] = Qt::green;
     }
 
+    mSelfmixedSignalColors[0] = QColor(0,255,255);   // Aqua
+    mSelfmixedSignalColors[1] = QColor(30,144,255);  // DodgerBlue
+    mSelfmixedSignalColors[2] = QColor(255,160,120); // LightSalmon
+    mSelfmixedSignalColors[3] = QColor(255,0,0);     // Red
+
+    for (int i = 0; i < MaxSelfmixedColors; i++) {
+        mSelfmixedGroundColors[i] = Qt::green;
+    }
+
     mCursorColors[0] = Qt::red;
     mCursorColors[1] = Qt::blue;
     mCursorColors[2] = Qt::darkBlue;
@@ -383,6 +452,15 @@ void Configuration::loadDarkScheme()
 
     for (int i = 0; i < MaxAnalogColors; i++) {
         mAnalogGroundColors[i] = Qt::green;
+    }
+
+    mSelfmixedSignalColors[0] = QColor(0,255,255);   // Aqua
+    mSelfmixedSignalColors[1] = QColor(30,144,255);  // DodgerBlue
+    mSelfmixedSignalColors[2] = QColor(255,160,120); // LightSalmon
+    mSelfmixedSignalColors[3] = QColor(255,0,0);     // Red
+
+    for (int i = 0; i < MaxSelfmixedColors; i++) {
+        mSelfmixedGroundColors[i] = Qt::green;
     }
 
     mCursorColors[0] = Qt::red;

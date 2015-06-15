@@ -73,7 +73,10 @@ SOURCES += \
     device/labtool/labtoolcalibrationdata.cpp \
     device/digitalsignal.cpp \
     device/reconfigurelistener.cpp \
-    device/selfmixedsignal.cpp
+    device/selfmixedsignal.cpp \
+    capture/uiselfmixedgroup.cpp \
+    capture/uiselfmixedsignal.cpp \
+    capture/uiselfmixedtrigger.cpp
 
 HEADERS += \
     generator/i2cgenerator.h \
@@ -150,7 +153,10 @@ HEADERS += \
     device/labtool/labtoolcalibrationdata.h \
     device/digitalsignal.h \
     device/reconfigurelistener.h \
-    device/selfmixedsignal.h
+    device/selfmixedsignal.h \
+    capture/uiselfmixedtrigger.h \
+    capture/uiselfmixedsignal.h \
+    capture/uiselfmixedgroup.h
 
 RESOURCES += \
     icons.qrc

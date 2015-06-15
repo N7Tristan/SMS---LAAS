@@ -61,6 +61,17 @@ public:
     void   setAnalogOutCableColor(int id, QColor &c);
     QColor analogOutCableColor(int id);
 
+    //selfmixed
+    QColor selfmixedSignalColor(int id);
+    void   setSelfmixedSignalColor(int id, QColor &c);
+    QColor selfmixedGroundColor(int id);
+    void   setSelfmixedGroundColor(int id, QColor &c);
+    void   setSelfmixedInCableColor(int id, QColor &c);
+    QColor selfmixedInCableColor(int id);
+    void   setSelfmixedOutCableColor(int id, QColor &c);
+    QColor selfmixedOutCableColor(int id);
+
+
     QColor outsidePlotColor();
 
     void loadLightScheme();
@@ -81,6 +92,7 @@ private:
     enum {
         MaxDigitalColors = 32,
         MaxAnalogColors = 4,
+        MaxSelfmixedColors = 4,
         MaxCursorColors = 5
     };    
 
@@ -92,6 +104,7 @@ private:
     QColor mAnalogSignalColors[MaxAnalogColors];
     QColor mSelfmixedSignalColors[MaxAnalogColors];
     QColor mAnalogGroundColors[MaxAnalogColors];
+    QColor mSelfmixedGroundColors[MaxAnalogColors];
     QColor mCursorColors[MaxCursorColors];
     QColor mGridColor;
     QColor mAnalyzerColor;
