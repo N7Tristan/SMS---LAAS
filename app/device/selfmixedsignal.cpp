@@ -16,89 +16,16 @@
 #include "selfmixedsignal.h"
 
 #include <QStringList>
-
-/*!
-    \class SelfmixedSignal
-    \brief SelfmixedSignal is a container class for settings related to a
-        Selfmixed signal.
-
-    \ingroup Device
-
-*/
-
-/*!
-    \enum SelfmixedSignal::Constants
-
-    This enum defines constants associated with SelfmixedSignal
-
-    \var SelfmixedSignal::Constants SelfmixedSignal::InvalidSelfmixedId
-    Represents an invalid Selfmixed ID
-
-*/
-
-/*!
-    \enum SelfmixedSignal::SelfmixedUsage
-
-    This enum describes the possible usages for the SelfmixedSignal container.
-
-    \var SelfmixedSignal::SelfmixedUsage SelfmixedSignal::SelfmixedUsageCapture
-    Use when creating an Selfmixed signal for capture functionality
-
-    \var SelfmixedSignal::SelfmixedUsage SelfmixedSignal::SelfmixedUsageGenerate
-    Use when creating an Selfmixed signal for generator functionality
-*/
-
-/*!
-    \enum SelfmixedSignal::SelfmixedTriggerState
-
-    This enum describes the possible trigger states for an Selfmixed signal.
-
-    \var SelfmixedSignal::SelfmixedTriggerState SelfmixedSignal::SelfmixedTriggerNone
-    No trigger
-
-    \var SelfmixedSignal::SelfmixedTriggerState SelfmixedSignal::SelfmixedTriggerHighLow
-    Trig at high-to-low transition
-
-    \var SelfmixedSignal::SelfmixedTriggerState SelfmixedSignal::SelfmixedTriggerLowHigh
-    Trig at low-to-high transition
-*/
-
-/*!
-    \enum SelfmixedSignal::SelfmixedCoupling
-
-    This enum describes the possible coupling settings for an Selfmixed signal.
-
-    \var SelfmixedSignal::SelfmixedCoupling SelfmixedSignal::CouplingDc
-    Use DC coupling - both the DC and AC components of the signal are measured
-
-    \var SelfmixedSignal::SelfmixedCoupling SelfmixedSignal::CouplingAc
-    Use AC coupling - the DC component of the signal is filtered out.
-*/
-
-/*!
-    \enum SelfmixedSignal::SelfmixedWaveform
-
-    This enum describes the possible waveforms that can be generated for an
-    Selfmixed signal.
-
-    \var SelfmixedSignal::SelfmixedWaveform SelfmixedSignal::WaveformSine
-    Generate a sine waveform.
-
-    \var SelfmixedSignal::SelfmixedWaveform SelfmixedSignal::WaveformSquare
-    Generate a square waveform.
-
-    \var SelfmixedSignal::SelfmixedWaveform SelfmixedSignal::WaveformTriangle
-    Generate a triangle waveform.
-*/
-
+#include <QDebug>
 
 /*!
     Constructs an empty Selfmixed signal with default usage and ID.
 */
 SelfmixedSignal::SelfmixedSignal()
 {
-//    SelfmixedSignal::SelfmixedSignal(SelfmixedUsageCapture, 0);
+   // SelfmixedSignal::SelfmixedSignal(SelfmixedUsageCapture, 0);
     mUsage     = SelfmixedUsageCapture;
+    //mUsage     = SelfmixedUsageGenerate;
     mReconfigureListener = NULL;
     mId        = 0;
     mName      = QString("Selfmixed %1").arg(0);
@@ -111,6 +38,7 @@ SelfmixedSignal::SelfmixedSignal()
     mFrequency = 10000;
     mWaveform  = SelfmixedSignal::WaveformSine;
     mAmplitude = 3;
+    qDebug("Finish init signal");
 }
 
 /*!
@@ -157,14 +85,6 @@ bool SelfmixedSignal::operator==(const SelfmixedSignal &other)
 
 
 /*!
-    \fn bool SelfmixedSignal::operator!=(const SelfmixedSignal &signal)
-
-   Returns true if this Selfmixed signal and the given \a signal have different
-   contents; otherwise returns false.
-*/
-
-
-/*!
     Copies the content of \a other to this Selfmixed signal.
 */
 SelfmixedSignal& SelfmixedSignal::operator=(const SelfmixedSignal &other)
@@ -179,40 +99,11 @@ SelfmixedSignal& SelfmixedSignal::operator=(const SelfmixedSignal &other)
     mWaveform = other.mWaveform;
     mAmplitude = other.mAmplitude;
     mUsage = other.mUsage;
-    mReconfigureListener = other.mReconfigureListener;
+   // mReconfigureListener = other.mReconfigureListener;
 
     return *this;
 }
 
-/*!
-    \fn int SelfmixedSignal::id() const
-
-   Returns the signal ID.
-*/
-
-/*!
-    \fn void SelfmixedSignal::setId(int id)
-
-   Sets the signal ID.
-*/
-
-/*!
-    \fn QString SelfmixedSignal::name() const
-
-   Returns the signal name.
-*/
-
-/*!
-    \fn void SelfmixedSignal::setName(QString name)
-
-   Sets the signal name.
-*/
-
-/*!
-    \fn SelfmixedTriggerState SelfmixedSignal::triggerState() const
-
-   Returns the trigger state for this signal.
-*/
 
 /*!
     \fn void SelfmixedSignal::setTriggerState(SelfmixedTriggerState state)
@@ -225,120 +116,47 @@ void SelfmixedSignal::setTriggerState(SelfmixedTriggerState state)
 
     mTriggerState = state;
 
-    if (mReconfigureListener != NULL) {
+    /*if (mReconfigureListener != NULL) {
         mReconfigureListener->reconfigure();
-    }
+    }*/
 }
 
-/*!
-    \fn SelfmixedCoupling SelfmixedSignal::coupling() const
 
-   Returns the coupling for this signal.
-*/
-
-/*!
-    \fn void SelfmixedSignal::setCoupling(SelfmixedCoupling c)
-
-   Sets the coupling for this signal to \a c.
-*/
 void SelfmixedSignal::setCoupling(SelfmixedCoupling c)
 {
     if (c == mCoupling) return;
 
     mCoupling = c;
 
-    if (mReconfigureListener != NULL) {
+   /* if (mReconfigureListener != NULL) {
         mReconfigureListener->reconfigure();
-    }
+    }*/
 }
 
-/*!
-    \fn double SelfmixedSignal::vPerDiv() const
 
-   Returns the Volts/Div this signal.
-*/
-
-/*!
-    \fn void SelfmixedSignal::setVPerDiv(double v)
-
-   Sets the Volts/Div for this signal to \a v.
-*/
 void SelfmixedSignal::setVPerDiv(double v)
 {
     if (v == mVPerDiv) return;
 
     mVPerDiv = v;
 
-    if (mReconfigureListener != NULL) {
+   /* if (mReconfigureListener != NULL) {
         mReconfigureListener->reconfigure();
-    }
+    }*/
 }
 
-/*!
-    \fn double SelfmixedSignal::triggerLevel() const
 
-   Returns the trigger level for this signal.
-*/
-
-/*!
-    \fn void SelfmixedSignal::setTriggerLevel(double l)
-
-   Sets the trigger level for this signal to \a l.
-*/
 void SelfmixedSignal::setTriggerLevel(double l)
 {
     if (l == mTriggerLevel) return;
 
     mTriggerLevel = l;
 
-    if (mReconfigureListener != NULL) {
+   /* if (mReconfigureListener != NULL) {
         mReconfigureListener->reconfigure();
-    }
+    }*/
 }
 
-/*!
-    \fn SelfmixedWaveform SelfmixedSignal::waveform() const
-
-   Returns the waveform that will be generated for this signal.
-*/
-
-/*!
-    \fn void SelfmixedSignal::setWaveform(SelfmixedWaveform waveform)
-
-   Sets the waveform to generate for this signal to \a waveform.
-*/
-
-/*!
-    \fn int SelfmixedSignal::frequency() const
-
-   Returns the frequency for this signal.
-*/
-
-/*!
-    \fn void SelfmixedSignal::setFrequency (int freq)
-
-   Sets the frequency for this signal to \a freq.
-*/
-
-/*!
-    \fn double SelfmixedSignal::amplitude() const
-
-   Returns the amplitude for this signal.
-*/
-
-/*!
-    \fn void SelfmixedSignal::setAmplitude(double amp)
-
-   Sets the amplitude for this signal to \a amp.
-*/
-
-
-/*!
-    Returns a string representation of this Selfmixed signal. This is typically
-    used when saving settings to persistent storage.
-
-    \sa fromSettingsString()
-*/
 QString SelfmixedSignal::toSettingsString()
 {
     // -- common fields
@@ -504,8 +322,8 @@ void SelfmixedSignal::setReconfigureListener(ReconfigureListener* listener)
         QObject cannot be copied and we would have had to implement QObject
         in order to use signals and slots.
     */
-
-    mReconfigureListener = listener;
+// Me semble inutile à 'linstant présent
+    //mReconfigureListener = listener;
 }
 
 bool SelfmixedSignalLessThan(const SelfmixedSignal* s1, const SelfmixedSignal* s2) {

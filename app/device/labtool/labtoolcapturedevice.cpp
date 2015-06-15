@@ -1274,6 +1274,7 @@ void LabToolCaptureDevice::setAnalogData(int signalId, QVector<double> data)
 
 QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId)
 {
+    qDebug("goes here selfmixedData");
     QVector<double>* data = NULL;
 
     if (signalId < MaxSelfmixedSignals) {
@@ -1285,7 +1286,8 @@ QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId)
 
 void LabToolCaptureDevice::setSelfmixedData(int signalId, QVector<double> data) //peut être faire le traitement ici
 {
-    if (signalId < MaxSelfmixedSignals) {
+    qDebug("goes here setSelfmixedData");
+   if (signalId < MaxSelfmixedSignals) {
 
         if (mSelfmixedSignals[signalId] != NULL) {
             delete mSelfmixedSignals[signalId];

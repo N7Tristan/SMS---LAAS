@@ -423,7 +423,11 @@ SelfmixedSignal* CaptureDevice::addSelfmixedSignal(int id)
         QList<int> unused = unusedSelfmixedIds();
         if (!unused.contains(id)) break;
 
-        //signal = new SelfmixedSignal(SelfmixedSignal::SelfmixedUsageCapture, id);
+        //signal = new SelfmixedSignal(SelfmixedSignal::SelfmixedUsageCapture, id); -> ancien appel, il ne faut pas déranger
+        // le hardware
+        signal = new SelfmixedSignal();
+
+
         //signal->setReconfigureListener(this);
 
        /* mSelfmixedSignalList.append(signal);
