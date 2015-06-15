@@ -153,7 +153,7 @@ void UiSelfmixedSignalPrivate::setup(SelfmixedSignal* signal, UiSelfmixedSignal*
 
     // Deallocation: Destructor
     mIdLbl = new QLabel(parent);
-    mIdLbl->setText(QString("A%1").arg(signal->id()));
+    mIdLbl->setText(QString("Self mixing signal %1").arg(signal->id()));
     mIdLbl->show();
 
     // Deallocation: Destructor
@@ -239,7 +239,7 @@ double UiSelfmixedSignalPrivate::calcPeakToPeak()
 
     CaptureDevice* device = DeviceManager::instance().activeDevice()
             ->captureDevice();
-    QVector<double>* data = device->selfmixedData(mSignal->id());
+    QVector<double>* data = device->selfmixedData(mSignal->id()); // retenir cette architecture pour le traitement
 
     if (data != NULL) {
         double min = 123456789;

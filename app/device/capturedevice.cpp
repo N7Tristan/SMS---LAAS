@@ -419,23 +419,22 @@ SelfmixedSignal* CaptureDevice::addSelfmixedSignal(int id)
 
     do {
         // make sure the ID is valid
-        if (id < 0 || id >= maxNumAnalogSignals()) break;
-        QList<int> unused = unusedAnalogIds();
+        if (id < 0 || id >= maxNumSelfmixedSignals()) break;
+        QList<int> unused = unusedSelfmixedIds();
         if (!unused.contains(id)) break;
 
-        signal = new SelfmixedSignal(SelfmixedSignal::SelfmixedUsageCapture, id);
-        signal->setReconfigureListener(this);
+        //signal = new SelfmixedSignal(SelfmixedSignal::SelfmixedUsageCapture, id);
+        //signal->setReconfigureListener(this);
 
-        mSelfmixedSignalList.append(signal);
+       /* mSelfmixedSignalList.append(signal);
         qSort(mSelfmixedSignalList.begin(), mSelfmixedSignalList.end(),
-              SelfmixedSignalLessThan);
+              SelfmixedSignalLessThan);*/
 
         // adding a signal might require a reconfiguration
-        reconfigure();
+        //reconfigure(); -> pour le self mixing la reconfiguration ne semble pas forcement
+        //necessaire.
 
     } while(false);
-
-
     return signal;
 }
 

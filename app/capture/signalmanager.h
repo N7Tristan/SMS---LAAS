@@ -67,7 +67,7 @@ private:
     enum {
         SignalDigital    = 1,
         SignalAnalog     = 2,
-        SignalSelmixed   = 3,
+        SignalSelfmixed  = 3,
         SignalDataMagic  = 0xEA0102AE,
         SignalStartMagic = 0x000000EB
     };

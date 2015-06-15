@@ -61,7 +61,7 @@ private:
     enum PrivateConstants {
         NumDivs = 10,
         DistanceBetweenArea = 4,
-        SignalIdMarginRight = 10
+        SignalIdMarginRight = 10 // normal value 10 -> test 12
     };
 
 

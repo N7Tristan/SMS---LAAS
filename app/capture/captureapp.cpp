@@ -632,9 +632,7 @@ void CaptureApp::handleCaptureFinished(bool successful, QString  msg)
                                  msg);
 
         }
-
     }
-
 }
 
 /*!

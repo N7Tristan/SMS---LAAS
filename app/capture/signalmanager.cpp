@@ -339,6 +339,9 @@ void SignalManager::reloadSignalsFromDevice()
     foreach(AnalogSignal* as, device->analogSignals()) {
         addAnalogSignal(as);
     }
+    foreach(SelfmixedSignal* as, device->selfmixedSignals()) {
+        addSelfmixedSignal(as);
+    }
 
 }
 
@@ -374,11 +377,8 @@ double SignalManager::closestDigitalTransition(double startTime)
                 lastDiff = diff;
                 closestTime = t;
             }
-
         }
-
     }
-
     return closestTime;
 }
 
