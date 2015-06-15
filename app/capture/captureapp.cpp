@@ -710,6 +710,7 @@ void CaptureApp::exportData()
 
     QList<DigitalSignal*> digitalSignals = device->digitalSignals();
     QList<AnalogSignal*> analogSignals = device->analogSignals();
+    QList<SelfmixedSignal*> selfmixedSignals = device->selfmixedSignals();
 
     // check if there is data to export
     do {
@@ -733,6 +734,15 @@ void CaptureApp::exportData()
             }
         }
 
+        if (dataToExport) break;
+
+        foreach(SelfmixedSignal* s, selfmixedSignals) {
+            QVector<double>* d = device->selfmixedData(s->id());
+            if (d != NULL && d->size() > 0) {
+                dataToExport = true;
+                break;
+            }
+        }
         if (dataToExport) break;
 
         QMessageBox::warning(mUiContext,
