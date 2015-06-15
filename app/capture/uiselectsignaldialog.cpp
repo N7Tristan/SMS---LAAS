@@ -47,6 +47,7 @@
 UiSelectSignalDialog::UiSelectSignalDialog(QWidget *parent) :
     QDialog(parent),
     mDigitalSignalsMap(),
+    mSelfmixedSignalsMap(),
     mAnalogSignalsMap()
 {
     mAnalyzersBox = NULL;
@@ -149,9 +150,9 @@ QList<int> UiSelectSignalDialog::selectedSelfmixedSignals() //à modifier par la
 {
     QList<int> list;
 
-    QList<int> ids = mAnalogSignalsMap.keys();
+    QList<int> ids = mSelfmixedSignalsMap.keys();
     for (int i = 0; i < ids.size(); i++) {
-        if (mAnalogSignalsMap.value(ids.at(i))->isChecked()) {
+        if (mSelfmixedSignalsMap.value(ids.at(i))->isChecked()) {
             list.append(ids.at(i));
         }
     }
