@@ -21,6 +21,7 @@
 #include "uicursorgroup.h"
 #include "uidigitalgroup.h"
 
+
 #include "signalmanager.h"
 
 #include "device/devicemanager.h"
@@ -98,6 +99,14 @@ UiCaptureArea::UiCaptureArea(SignalManager *signalManager, QWidget *parent) :
             mAnalogGroup,
             SLOT(setMeasurementData(QList<double>,QList<double>,bool)));
 
+    // Deallocation: measureArea takes ownership of selfmixed group
+    mSelfmixedGroup = new UiSelfmixedGroup();
+    measureArea->addMeasureGroup(mSelfmixedGroup);
+
+    connect(mSignalManager,
+            SIGNAL(selfmixedMeasurmentChanged(QList<double>,QList<double>,bool)),
+            mSelfmixedGroup,
+            SLOT(setMeasurementData(QList<double>,QList<double>,bool)));
 }
 
 /*!
@@ -142,6 +151,23 @@ void UiCaptureArea::updateAnalogGroup()
     }
     else {
         mAnalogGroup->setVisible(true);
+    }
+}
+
+
+void UiCaptureArea::updateSelfmixedGroup()
+{
+    CaptureDevice* device = DeviceManager::instance().activeDevice()
+            ->captureDevice();
+    if (device == NULL) return;
+
+    mSelfmixedGroup->setNumSignals(device->maxNumSelfmixedSignals());
+
+    if (device->maxNumSelfmixedSignals() == 0) {
+        mSelfmixedGroup->setVisible(false);
+    }
+    else {
+        mSelfmixedGroup->setVisible(true);
     }
 
 }

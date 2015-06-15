@@ -41,9 +41,10 @@ public slots:
 
 private:
 
+    QMap<int, QCheckBox*> mSelfmixedSignalsMap;
     QMap<int, QCheckBox*> mDigitalSignalsMap;
     QMap<int, QCheckBox*> mAnalogSignalsMap;
-    QMap<int, QCheckBox*> mSelfmixedSignalsMap;
+
     QComboBox* mAnalyzersBox;
 
     QWidget *createDigitalSignalBox(QList<int> &list);

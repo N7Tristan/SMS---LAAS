@@ -19,6 +19,8 @@
 #include <QWidget>
 #include "uiplot.h"
 #include "uianaloggroup.h"
+#include "uiselfmixedgroup.h"
+
 
 class UiCaptureArea : public QWidget
 {
@@ -28,7 +30,7 @@ public:
     void handleSignalDataChanged();
     void updateUi();
     void updateAnalogGroup();
-    
+    void updateSelfmixedGroup();
 signals:
     
 public slots:
@@ -40,6 +42,7 @@ private:
     SignalManager* mSignalManager;
     UiPlot* mPlot;
     UiAnalogGroup* mAnalogGroup;
+    UiSelfmixedGroup* mSelfmixedGroup;
     
 };
 

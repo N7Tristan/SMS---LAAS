@@ -52,7 +52,7 @@ UiSelectSignalDialog::UiSelectSignalDialog(QWidget *parent) :
 {
     mAnalyzersBox = NULL;
 
-    setWindowTitle(tr("Add Signal your self mixed signal"));
+    setWindowTitle(tr("Add Signal"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     // Deallocation:
@@ -173,9 +173,6 @@ QString UiSelectSignalDialog::selectedAnalyzer()
 QWidget* UiSelectSignalDialog::createDigitalSignalBox(QList<int> &list)
 {
 
-    // Deallocation:
-    //   Ownership is taken over by digitalGroup by the call to
-    //   digitalGroup->setlayout
     QGridLayout* l = new QGridLayout();
     l->setSizeConstraint(QLayout::SetFixedSize);
 
@@ -256,13 +253,13 @@ QWidget* UiSelectSignalDialog::createSelfmixedSignalBox(QList<int> &list)
         int id = list.at(i);
 
         // Deallocation: "Qt Object trees" (See UiMainWindow)
-        QLabel* cl = new QLabel("    ");
+        QLabel* cl = new QLabel("      ");
         QString color = Configuration::instance().selfmixedInCableColor(id).name();
         cl->setStyleSheet(QString("QLabel { background-color : %1; }").arg(color));
         l->addWidget(cl, 0, i);
 
         // Deallocation: "Qt Object trees" (See UiMainWindow)
-        l->addWidget(new QLabel(QString("Self mixed").arg(id), this), 1, i);
+        l->addWidget(new QLabel(QString("Self mixed %1").arg(id), this), 2, i);
         // Deallocation: "Qt Object trees" (See UiMainWindow)
         QCheckBox* cb = new QCheckBox(this);
         l->addWidget(cb, 1, i);
