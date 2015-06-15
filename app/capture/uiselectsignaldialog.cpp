@@ -80,7 +80,7 @@ UiSelectSignalDialog::UiSelectSignalDialog(QWidget *parent) :
 
     // self mixed
 
-    //s = device->unusedSelfmixedIds();
+    s = device->unusedSelfmixedIds();
     //s = device->unusedAnalogIds();
     if (s.size() > 0) {
         formLayout->addRow(tr("Selfmixed signals: "), createSelfmixedSignalBox(s));
@@ -257,12 +257,12 @@ QWidget* UiSelectSignalDialog::createSelfmixedSignalBox(QList<int> &list)
 
         // Deallocation: "Qt Object trees" (See UiMainWindow)
         QLabel* cl = new QLabel("    ");
-        QString color = Configuration::instance().analogInCableColor(id).name();
+        QString color = Configuration::instance().selfmixedInCableColor(id).name();
         cl->setStyleSheet(QString("QLabel { background-color : %1; }").arg(color));
         l->addWidget(cl, 0, i);
 
         // Deallocation: "Qt Object trees" (See UiMainWindow)
-        l->addWidget(new QLabel(QString("Self mixed A0").arg(id), this), 1, i);
+        l->addWidget(new QLabel(QString("Self mixed").arg(id), this), 1, i);
         // Deallocation: "Qt Object trees" (See UiMainWindow)
         QCheckBox* cb = new QCheckBox(this);
         l->addWidget(cb, 1, i);
