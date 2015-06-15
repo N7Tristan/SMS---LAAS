@@ -1289,7 +1289,7 @@ void LabToolCaptureDevice::setSelfmixedData(int signalId, QVector<double> data) 
 {
     qDebug("goes here setSelfmixedData");
    if (signalId < MaxSelfmixedSignals) {
-
+/*
         if (mSelfmixedSignals[signalId] != NULL) {
             delete mSelfmixedSignals[signalId];
             mSelfmixedSignals[signalId] = NULL;
@@ -1302,7 +1302,7 @@ void LabToolCaptureDevice::setSelfmixedData(int signalId, QVector<double> data) 
             //   QVector will be deallocated either by this function or the destructor
             //   as a part of deallocating mAnalogSignalData
             mSelfmixedSignals[signalId] = new QVector<double>(data);
-        }
+        }*/
     }
 }
 

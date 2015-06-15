@@ -46,6 +46,7 @@
 UiPlot::UiPlot(SignalManager *signalManager, QWidget *parent) :
     QAbstractScrollArea(parent)
 {
+    qDebug("UiPlot");
     mSignalManager = signalManager;
 
     // Deallocation: "Qt Object trees" (See UiMainWindow)
@@ -132,6 +133,7 @@ void UiPlot::updateSignals()
 */
 void UiPlot::handleSignalDataChanged()
 {
+    qDebug("handleSignalDatachanged");
 
     CaptureDevice* device = DeviceManager::instance().activeDevice()
             ->captureDevice();
@@ -175,6 +177,7 @@ void UiPlot::handleSignalDataChanged()
 */
 void UiPlot::paintEvent(QPaintEvent *event)
 {
+    qDebug("paintEvent");
     (void)event;
     QPainter painter(viewport());
 
@@ -473,7 +476,7 @@ void UiPlot::updateLayout() ///////////////////FAIRE LE TRAITEMENT ICI ??///////
     int yPos = mTimeAxis->height();
     int w = mCursor->minimumInfoWidth();
 
-    qDebug("test update1");
+    qDebug("test update layout 1");
     // get the widest info width
     foreach(UiAbstractSignal* signal, mSignalManager->signalList()) {
 
@@ -483,7 +486,7 @@ void UiPlot::updateLayout() ///////////////////FAIRE LE TRAITEMENT ICI ??///////
             w = signal->minimumInfoWidth();
         }
     }
-    qDebug("test update2");
+    qDebug("test update layout 2");
     // update info width part for all widgets
     mTimeAxis->setInfoWidth(w);
     mGrid->setInfoWidth(w);
@@ -581,6 +584,7 @@ double UiPlot::getEndTime()
 */
 void UiPlot::handleSignalsAdded()
 {
+    qDebug("handleSignalsAdded");
     foreach(UiAbstractSignal* signal, mSignalManager->signalList()) {
 
         // add the signal to this UiPlot (viewport) if not already added

@@ -1320,6 +1320,7 @@ int LabToolDeviceComm::configureCapture(int cfgSize, quint8 * cfgData)
 */
 int LabToolDeviceComm::runCapture()
 {
+    qDebug("runCapture");
     if (!mConnected)
     {
         return -1;
@@ -1346,6 +1347,7 @@ int LabToolDeviceComm::runCapture()
 */
 int LabToolDeviceComm::stopGenerator()
 {
+    qDebug("stopGenerator");
     if (!mConnected)
     {
         return -1;
@@ -1468,6 +1470,7 @@ int LabToolDeviceComm::runGenerator()
 */
 int LabToolDeviceComm::ping()
 {
+    qDebug("ping");
     if (!mConnected)
     {
         return -1;

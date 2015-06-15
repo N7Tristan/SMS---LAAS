@@ -99,7 +99,7 @@ SelfmixedSignal& SelfmixedSignal::operator=(const SelfmixedSignal &other)
     mWaveform = other.mWaveform;
     mAmplitude = other.mAmplitude;
     mUsage = other.mUsage;
-   // mReconfigureListener = other.mReconfigureListener;
+    mReconfigureListener = other.mReconfigureListener;
 
     return *this;
 }
@@ -202,6 +202,7 @@ QString SelfmixedSignal::toSettingsString()
 */
 SelfmixedSignal SelfmixedSignal::fromSettingsString(QString& s)
 {
+    qDebug("fromSettingsString");
     bool ok = false;
     SelfmixedSignal tmp;
     tmp.mId = SelfmixedSignal::InvalidSelfmixedId;
@@ -327,6 +328,7 @@ void SelfmixedSignal::setReconfigureListener(ReconfigureListener* listener)
 }
 
 bool SelfmixedSignalLessThan(const SelfmixedSignal* s1, const SelfmixedSignal* s2) {
+    qDebug("SelfmixedSignalLessThan");
     return s1->id() < s2->id();
 }
 

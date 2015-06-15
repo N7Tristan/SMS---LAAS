@@ -666,6 +666,7 @@ void CaptureApp::calibrationSettings()
 */
 void CaptureApp::selectSignalsToAdd()
 {
+    qDebug("selectSignalsToAdd");
 
     UiSelectSignalDialog dialog(mUiContext);
     int result = dialog.exec();
@@ -704,6 +705,7 @@ void CaptureApp::selectSignalsToAdd()
 */
 void CaptureApp::exportData()
 {
+    qDebug("exportData");
     CaptureDevice* device = DeviceManager::instance().activeDevice()
             ->captureDevice();
     if (device == NULL) return;
@@ -764,6 +766,7 @@ void CaptureApp::exportData()
 */
 void CaptureApp::sampleRateChanged(int rateIndex)
 {
+    qDebug("sampleRateChanged");
     int rate = mRateBox->itemData(rateIndex).toInt();
     CaptureDevice* device = DeviceManager::instance().activeDevice()
             ->captureDevice();

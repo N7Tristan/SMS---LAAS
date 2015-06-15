@@ -436,12 +436,14 @@ SelfmixedSignal* CaptureDevice::addSelfmixedSignal(int id)
         qDebug("ajout du signal à la liste des signaux");
 
         // adding a signal might require a reconfiguration
-        //reconfigure();
+        reconfigure();
 
         //necessaire.
 
     } while(false);
+    qDebug("fin addSelfmixedSignal");
     return signal;
+
 }
 
 

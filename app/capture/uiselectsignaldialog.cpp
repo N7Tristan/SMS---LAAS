@@ -26,6 +26,7 @@
 #include "signalmanager.h"
 #include "uidigitalsignal.h"
 #include "uianalogsignal.h"
+#include "uiselfmixedsignal.h"
 #include "common/configuration.h"
 #include "device/devicemanager.h"
 #include "analyzer/analyzermanager.h"
@@ -81,7 +82,6 @@ UiSelectSignalDialog::UiSelectSignalDialog(QWidget *parent) :
     // self mixed
 
     s = device->unusedSelfmixedIds();
-    //s = device->unusedAnalogIds();
     if (s.size() > 0) {
         formLayout->addRow(tr("Selfmixed signals: "), createSelfmixedSignalBox(s));
     }
@@ -243,7 +243,6 @@ QWidget* UiSelectSignalDialog::createAnalogSignalBox(QList<int> &list)
 
 QWidget* UiSelectSignalDialog::createSelfmixedSignalBox(QList<int> &list)
 {
-
     // Deallocation:
     //   Ownership is taken over by call to w->setlayout
     QGridLayout* l = new QGridLayout();
@@ -265,13 +264,11 @@ QWidget* UiSelectSignalDialog::createSelfmixedSignalBox(QList<int> &list)
         l->addWidget(cb, 1, i);
         mSelfmixedSignalsMap.insert(id, cb);
     }
-
     // Deallocation: "Qt Object trees" (See UiMainWindow)
     QWidget* w = new QWidget(this);
     w->setLayout(l);
 
     return w;
-
 }
 /*!
    Create a signal box widget for the supported analyzers.

@@ -33,6 +33,7 @@
 UiListSpinBox::UiListSpinBox(QWidget *parent) :
     QSpinBox(parent)
 {
+    qDebug("UiListSpinBox");
     setRange(0, 0);
     connect(this, SIGNAL(valueChanged(int)),
             this, SLOT(handleValueChanged(int)));
@@ -43,6 +44,7 @@ UiListSpinBox::UiListSpinBox(QWidget *parent) :
 */
 void UiListSpinBox::setValue(double val)
 {
+    qDebug("setValue");
 
     for (int i = 0; i < mValues.size(); i++) {
         double diff = qAbs<double>(mValues.at(i) - val);
@@ -58,6 +60,7 @@ void UiListSpinBox::setValue(double val)
 */
 void UiListSpinBox::setSupportedValues(QList<double> &list)
 {
+    qDebug("setSupportedValues");
     mValues = list;
     setRange(0, mValues.size()-1);
     setValue(mValues.at(list.size()/2));
@@ -77,7 +80,7 @@ void UiListSpinBox::setSupportedValues(QList<double> &list)
 */
 QString UiListSpinBox::textFromValue(int value) const
 {
-
+    qDebug("testFromValue");
     QString v = "";
 
     if (value >= 0 && value < mValues.size()) {
@@ -92,6 +95,7 @@ QString UiListSpinBox::textFromValue(int value) const
 */
 int UiListSpinBox::valueFromText(const QString &text) const
 {
+    qDebug("valueFromText");
     bool ok = false;
     int result = value();
 
@@ -120,6 +124,7 @@ int UiListSpinBox::valueFromText(const QString &text) const
 QValidator::State UiListSpinBox::validate(QString &text, int &pos) const
 {
 
+    qDebug("validate");
     if (pos == text.size() || pos == 0) return QValidator::Acceptable;
 
     if (text.at(pos-1).isDigit()) return QValidator::Acceptable;
@@ -145,6 +150,7 @@ QValidator::State UiListSpinBox::validate(QString &text, int &pos) const
 */
 void UiListSpinBox::handleValueChanged(int i)
 {
+    qDebug("handleValueChanged");
     if (i >= 0 && i < mValues.size()) {
         emit valueChanged(mValues.at(i));
     }

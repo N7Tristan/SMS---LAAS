@@ -585,6 +585,7 @@ void SignalManager::addAnalogSignal(AnalogSignal* s)
 
 void SignalManager::addSelfmixedSignal(SelfmixedSignal* s)
 {
+    qDebug("addSelfmixedSignal");
     if (mSelfmixedSignalWidget == NULL) {
 
         mSelfmixedSignalWidget = new UiSelfmixedSignal(); //probleme ici
@@ -604,6 +605,7 @@ void SignalManager::addSelfmixedSignal(SelfmixedSignal* s)
     }
     mSelfmixedSignalWidget->addSignal(s);
     signalsAdded();
+    qDebug("fin addSelfmixedSignal");
 }
 
 /*!
