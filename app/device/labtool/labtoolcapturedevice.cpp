@@ -441,7 +441,6 @@ void LabToolCaptureDevice::compensateForAnalogHardware(QVector<T> *s, bool isAna
         case 10000000: numToRemove = 4; break;
         case 20000000: numToRemove = 5; break;
         }
-
         trimSignalData(s, numToRemove, !isAnalogSignal);
     }
 }
@@ -932,7 +931,9 @@ void LabToolCaptureDevice::unpackAnalogInput(const quint8 *pData, quint32 size, 
     }
 
 #define A0_CH_ID  (0)  // Mapping of A0 to the VADC channel number in fw
-#define A1_CH_ID  (1)  // Mapping of A1 to the VADC channel number in fw
+#define A1_CH_ID  (1)  // Mapping of A1 to the VADC channel number in fw 
+
+
 
     // This is adjusted unpacking of the data. If an EMPTY marker is found, it is not treated
     // as data and is instead discarded. If two channels are sampled and two consecutive
@@ -1157,7 +1158,7 @@ void LabToolCaptureDevice::convertAnalogInput(const quint8 *pData, quint32 size,
 
         mAnalogSignals[id] = s;
         mEndSampleIdx = s->size()-1;
-        //qDebug("A%d: %d samples", id, s->size());
+        qDebug("A%d: %d samples", id, s->size());
     }
 }
 
@@ -1273,7 +1274,7 @@ void LabToolCaptureDevice::setAnalogData(int signalId, QVector<double> data)
     }
 }
 
-QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId)
+QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId) // A quoi sert cette fonction????
 {
     qDebug("goes here selfmixedData");
     QVector<double>* data = NULL;
@@ -1288,11 +1289,11 @@ void LabToolCaptureDevice::setSelfmixedData(int signalId, QVector<double> data) 
 {
     qDebug("goes here setSelfmixedData");
    if (signalId < MaxSelfmixedSignals) {
-/*
-        if (mSelfmixedSignals[signalId] != NULL) {
+
+        /*if (mSelfmixedSignals[signalId] != NULL) {
             delete mSelfmixedSignals[signalId];
             mSelfmixedSignals[signalId] = NULL;
-        }
+        }*/
 
         if (data.size() > 0) {
             mEndSampleIdx = data.size()-1;
@@ -1301,7 +1302,7 @@ void LabToolCaptureDevice::setSelfmixedData(int signalId, QVector<double> data) 
             //   QVector will be deallocated either by this function or the destructor
             //   as a part of deallocating mAnalogSignalData
             mSelfmixedSignals[signalId] = new QVector<double>(data);
-        }*/
+        }
     }
 }
 

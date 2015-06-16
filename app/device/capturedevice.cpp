@@ -426,7 +426,7 @@ SelfmixedSignal* CaptureDevice::addSelfmixedSignal(int id)
 
         //signal = new SelfmixedSignal(SelfmixedSignal::SelfmixedUsageCapture, id); -> ancien appel, il ne faut pas déranger
         // le hardware
-        signal = new SelfmixedSignal();
+        signal = new SelfmixedSignal(SelfmixedSignal::SelfmixedUsageCapture, id);
         qDebug("creation du signal ok");
 
         //signal->setReconfigureListener(this);

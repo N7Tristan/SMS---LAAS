@@ -130,18 +130,14 @@ UiSelfmixedSignalPrivate::~UiSelfmixedSignalPrivate()
 void UiSelfmixedSignalPrivate::setup(SelfmixedSignal* signal, UiSelfmixedSignal* parent)
 {
     mSignal = signal;
-
-    //parent = NULL; permet d'avancer
-    qDebug("boobs 1");
+    qDebug("boobs");
     mColorLbl = new QLabel(parent);
-    qDebug("boobs 2");
     mColorLbl->setText("    ");
     QString color = Configuration::instance().selfmixedInCableColor(signal->id()).name();
     mColorLbl->setStyleSheet(QString("QLabel { background-color : %1; }").arg(color));
     mColorLbl->show();
 
     mIdLbl = new QLabel(parent);
-    qDebug("boobs 3");
     mIdLbl->setText(QString("Self mixing signal %1").arg(signal->id()));
     mIdLbl->show();
 
