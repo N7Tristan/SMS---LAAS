@@ -370,6 +370,13 @@ void CaptureApp::createToolBar()
 
     action = mToolBar->addAction("Add Signal");
     connect(action, SIGNAL(triggered()), this, SLOT(selectSignalsToAdd()));
+
+    mToolBar->addSeparator();
+    //ajout d'une bouton pour l'autofocus
+    mAutofocus = mToolBar-> addAction(QIcon(":/resources/16_magic.png"),
+                                      "Autofocus");
+    connect(mAutofocus, SIGNAL(triggered()), this, SLOT(autofocus()));
+    //
 }
 
 /*!
@@ -560,6 +567,10 @@ void CaptureApp::start()
                     msg);
     }
 
+}
+
+void CaptureApp::autofocus() {
+    //le pwm se déclenche pour entretnir l'autofocus
 }
 
 /*!

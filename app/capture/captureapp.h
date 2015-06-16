@@ -65,6 +65,7 @@ private:
     QAction* mTbStartAction;
     QAction* mTbContinuousAction;
     QAction* mTbStopAction;
+    QAction* mAutofocus;
 
     QComboBox* mRateBox;
 
@@ -82,6 +83,7 @@ private slots:
     void start();
     void startContinuous();
     void stop();
+    void autofocus();
     void handleCaptureFinished(bool successful, QString msg);
     void triggerSettings();
     void calibrationSettings();

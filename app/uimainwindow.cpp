@@ -672,7 +672,7 @@ void UiMainWindow::changeDeviceStatus(Device *device)
     QPalette palette = mDeviceLabel->palette();
     if (device->isAvailable()) {
         mDeviceLabel->setToolTip(tr("Device is available"));
-        palette.setColor(mDeviceLabel->foregroundRole(), Qt::black);
+        palette.setColor(mDeviceLabel->foregroundRole(), Qt::green);
     }
     else {
         mDeviceLabel->setToolTip(tr("Device is NOT available"));

@@ -14,5 +14,6 @@
         <file>resources/16_analog.png</file>
         <file>resources/16_digital.png</file>
         <file>resources/oscilloscope.ico</file>
+        <file>resources/16_magic.png</file>
     </qresource>
 </RCC>
