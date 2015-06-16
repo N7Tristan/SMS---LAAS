@@ -17,25 +17,11 @@ const double UiSelfmixedSignal::MaxVPerDiv = 4.99;
 const double UiSelfmixedSignal::MinVPerDiv = 0.11;
 
 
-// ###########################################################################
-//
-// ###########################################################################
-
-
-/*!
-    \class UiSelfmixedSignalPrivate
-    \brief Internal class used to keep track of each Selfmixed signal in the
-    Selfmixed signal widget.
-
-    \ingroup Capture
-
-    \privatesection
-
-*/
 
 class UiSelfmixedSignalPrivate
 {
 public:
+
     UiSelfmixedSignalPrivate();
     ~UiSelfmixedSignalPrivate();
 
@@ -99,6 +85,7 @@ UiSelfmixedSignalPrivate::UiSelfmixedSignalPrivate()
     mAcBtn         = NULL;
     mCouplingGroup = NULL;
     mGndPos        = 0;
+    qDebug("end constructeur UISelfmixedPrivate");
 }
 
 /*!
@@ -144,15 +131,17 @@ void UiSelfmixedSignalPrivate::setup(SelfmixedSignal* signal, UiSelfmixedSignal*
 {
     mSignal = signal;
 
-    // Deallocation: Destructor
+    //parent = NULL; permet d'avancer
+    qDebug("boobs 1");
     mColorLbl = new QLabel(parent);
+    qDebug("boobs 2");
     mColorLbl->setText("    ");
     QString color = Configuration::instance().selfmixedInCableColor(signal->id()).name();
     mColorLbl->setStyleSheet(QString("QLabel { background-color : %1; }").arg(color));
     mColorLbl->show();
 
-    // Deallocation: Destructor
     mIdLbl = new QLabel(parent);
+    qDebug("boobs 3");
     mIdLbl->setText(QString("Self mixing signal %1").arg(signal->id()));
     mIdLbl->show();
 
@@ -429,8 +418,8 @@ UiSelfmixedSignal::UiSelfmixedSignal(QWidget *parent) :
     mDragSignal = 0;
     mMouseOverXPos = 0;
     mMouseOverValid = false;
-
     setMouseTracking(true);
+    qDebug("Fin constructeur UiSelfmixedSignal");
 }
 
 /*!
@@ -446,10 +435,12 @@ UiSelfmixedSignal::~UiSelfmixedSignal()
 */
 void UiSelfmixedSignal::addSignal(SelfmixedSignal* signal)
 {
-
     // Deallocation: By disableSignal or Destructor
+
+    qDebug("UiSelfmixedSignal::addSignal(SelfmixedSignal* signal)");
     UiSelfmixedSignalPrivate* p = new UiSelfmixedSignalPrivate();
     p->setup(signal, this);
+
     mSignals.append(p);
 
     setMinimumInfoWidth(calcMinimumWidth());
@@ -468,7 +459,6 @@ QList<SelfmixedSignal*> UiSelfmixedSignal::addedSignals()
     foreach(UiSelfmixedSignalPrivate* p, mSignals) {
         l.append(p->mSignal);
     }
-
     return l;
 }
 

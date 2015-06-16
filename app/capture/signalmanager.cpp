@@ -43,6 +43,7 @@ SignalManager::SignalManager(QObject *parent) :
     QObject(parent)
 {
     mAnalogSignalWidget = NULL;
+    mSelfmixedSignalWidget =NULL;
 }
 
 /*!
@@ -295,6 +296,7 @@ void SignalManager::addAnalogSignal(int id)
 
 void SignalManager::addSelfmixedSignal(int id) //a modifier par la suite !!!
 {
+    qDebug("addSelfmixedSignal(int id)");
     CaptureDevice* device = DeviceManager::instance().activeDevice()
             ->captureDevice();
     do {
@@ -303,7 +305,7 @@ void SignalManager::addSelfmixedSignal(int id) //a modifier par la suite !!!
         SelfmixedSignal* s = device->addSelfmixedSignal(id); // j'ai changé ici
         if (s == NULL) break;
 
-        addSelfmixedSignal(s);// et ici
+        addSelfmixedSignal(s);
 
     } while (false);
 
@@ -588,8 +590,8 @@ void SignalManager::addSelfmixedSignal(SelfmixedSignal* s)
     qDebug("addSelfmixedSignal");
     if (mSelfmixedSignalWidget == NULL) {
 
-        mSelfmixedSignalWidget = new UiSelfmixedSignal(); //probleme ici
-
+        mSelfmixedSignalWidget = new UiSelfmixedSignal(); // /!\ /!\ //
+        qDebug("mSelfmixedSignalWidget créé");
 
         connect(mSelfmixedSignalWidget, SIGNAL(closed(UiAbstractSignal*)),
                 this, SLOT(closeSignal(UiAbstractSignal*)));

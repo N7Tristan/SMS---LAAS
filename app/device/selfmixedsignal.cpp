@@ -26,7 +26,7 @@ SelfmixedSignal::SelfmixedSignal()
    // SelfmixedSignal::SelfmixedSignal(SelfmixedUsageCapture, 0);
     mUsage     = SelfmixedUsageCapture;
     //mUsage     = SelfmixedUsageGenerate;
-    mReconfigureListener = NULL;
+    //mReconfigureListener = NULL;
     mId        = 0;
     mName      = QString("Selfmixed %1").arg(0);
 
@@ -51,7 +51,7 @@ SelfmixedSignal::SelfmixedSignal()
 SelfmixedSignal::SelfmixedSignal(SelfmixedUsage usage, int id)
 {
     mUsage     = usage;
-    mReconfigureListener = NULL;
+    //mReconfigureListener = NULL;
     mId        = id;
     mName      = QString("Selfmixed %1").arg(id);
 
@@ -99,7 +99,7 @@ SelfmixedSignal& SelfmixedSignal::operator=(const SelfmixedSignal &other)
     mWaveform = other.mWaveform;
     mAmplitude = other.mAmplitude;
     mUsage = other.mUsage;
-    mReconfigureListener = other.mReconfigureListener;
+    //mReconfigureListener = other.mReconfigureListener;
 
     return *this;
 }
@@ -323,7 +323,7 @@ void SelfmixedSignal::setReconfigureListener(ReconfigureListener* listener)
         QObject cannot be copied and we would have had to implement QObject
         in order to use signals and slots.
     */
-// Me semble inutile à 'linstant présent
+// Me semble inutile à l'instant présent
     //mReconfigureListener = listener;
 }
 

@@ -1278,10 +1278,9 @@ QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId)
     qDebug("goes here selfmixedData");
     QVector<double>* data = NULL;
 
-    if (signalId < MaxSelfmixedSignals) {
-        data = mSelfmixedSignals[signalId];
-    }
-
+    //if (signalId < MaxSelfmixedSignals) {
+      //  data = mSelfmixedSignals[signalId];
+    //}
     return data;
 }
 

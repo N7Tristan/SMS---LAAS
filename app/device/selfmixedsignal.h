@@ -97,7 +97,7 @@ public:
 
 private:
     SelfmixedUsage mUsage;
-    ReconfigureListener* mReconfigureListener;
+    //ReconfigureListener* mReconfigureListener;
 
     // ##### Common properties ########
 

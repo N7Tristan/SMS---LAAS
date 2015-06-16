@@ -415,6 +415,7 @@ QList<int> CaptureDevice::unusedAnalogIds()
 
 SelfmixedSignal* CaptureDevice::addSelfmixedSignal(int id)
 {
+    qDebug("CaptureDevice::addSelfmixedSignal(int id)");
     SelfmixedSignal* signal = NULL;
 
     do {
@@ -428,7 +429,7 @@ SelfmixedSignal* CaptureDevice::addSelfmixedSignal(int id)
         signal = new SelfmixedSignal();
         qDebug("creation du signal ok");
 
-       // signal->setReconfigureListener(this);
+        //signal->setReconfigureListener(this);
 
         mSelfmixedSignalList.append(signal);
         qSort(mSelfmixedSignalList.begin(), mSelfmixedSignalList.end(),

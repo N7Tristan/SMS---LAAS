@@ -31,6 +31,7 @@
 UiAbstractSignal::UiAbstractSignal(QWidget *parent) :
     UiAbstractPlotItem(parent)
 {
+    qDebug("UiAbstractSignal constructeur");
     mTimeAxis = NULL;
     mSelected = false;
 }
