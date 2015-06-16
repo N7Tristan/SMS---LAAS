@@ -44,10 +44,7 @@ public:
     void   setTextColor(QColor &c);
     QColor digitalSignalColor(int id);
     void   setDigitalSignalColor(int id, QColor &c);
-    QColor analogSignalColor(int id);
-    void   setAnalogSignalColor(int id, QColor &c);
-    QColor analogGroundColor(int id);
-    void   setAnalogGroundColor(int id, QColor &c);
+
     QColor cursorColor(int id);
     void   setCursorColor(int id, QColor &c);
     QColor gridColor();
@@ -56,6 +53,12 @@ public:
     void   setAnalyzerColor(QColor &c);
     void   setDigitalCableColor(int id, QColor &c);
     QColor digitalCableColor(int id);
+
+    //analog
+    QColor analogSignalColor(int id);
+    void   setAnalogSignalColor(int id, QColor &c);
+    QColor analogGroundColor(int id);
+    void   setAnalogGroundColor(int id, QColor &c);
     void   setAnalogInCableColor(int id, QColor &c);
     QColor analogInCableColor(int id);
     void   setAnalogOutCableColor(int id, QColor &c);

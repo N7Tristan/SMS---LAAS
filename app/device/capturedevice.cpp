@@ -424,8 +424,6 @@ SelfmixedSignal* CaptureDevice::addSelfmixedSignal(int id)
         QList<int> unused = unusedSelfmixedIds();
         if (!unused.contains(id)) break;
 
-        //signal = new SelfmixedSignal(SelfmixedSignal::SelfmixedUsageCapture, id); -> ancien appel, il ne faut pas déranger
-        // le hardware
         signal = new SelfmixedSignal(SelfmixedSignal::SelfmixedUsageCapture, id);
         qDebug("creation du signal ok");
 
@@ -554,7 +552,6 @@ void CaptureDevice::digitalTransitions(int signalId, QList<int> &list)
         //  i.e., the last sample time of the data list
         //
         list.append(data->size()-1);
-
     }
 }
 

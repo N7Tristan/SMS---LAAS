@@ -258,7 +258,7 @@ QWidget* UiSelectSignalDialog::createSelfmixedSignalBox(QList<int> &list)
         l->addWidget(cl, 0, i);
 
         // Deallocation: "Qt Object trees" (See UiMainWindow)
-        l->addWidget(new QLabel(QString("Self mixed %1").arg(id), this), 2, i);
+        l->addWidget(new QLabel(QString("SM %1").arg(id), this), 2, i);
         // Deallocation: "Qt Object trees" (See UiMainWindow)
         QCheckBox* cb = new QCheckBox(this);
         l->addWidget(cb, 1, i);

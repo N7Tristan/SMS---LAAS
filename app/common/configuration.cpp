@@ -213,7 +213,7 @@ QColor Configuration::cursorColor(int id)
 {
     if (id < 0) id = 0;
 
-    return mCursorColors[ (id%MaxCursorColors) ];
+    return mCursorColors[ (id%MaxCursorColors)];
 }
 
 /*!
@@ -325,7 +325,7 @@ QColor Configuration::selfmixedInCableColor(int id)
 {
     if (id < 0) id = 0;
 
-    return mSelfmixedInCableColors[ (id%MaxSelfmixedColors) ];
+    return mSelfmixedInCableColors[(id%MaxSelfmixedColors) ];
 }
 
 void Configuration::setSelfmixedInCableColor(int id, QColor &c)

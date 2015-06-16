@@ -1051,7 +1051,7 @@ void LabToolCaptureDevice::unpackAnalogInput(const quint8 *pData, quint32 size, 
         s1 = s1prim;
     }
 
-    mAnalogSignalData[0] = s0;
+    mAnalogSignalData[0] = s0; //stock toutes les valeurs non traitées !!!!!!
     mAnalogSignalData[1] = s1;
 }
 
@@ -1156,7 +1156,8 @@ void LabToolCaptureDevice::convertAnalogInput(const quint8 *pData, quint32 size,
             delete mAnalogSignals[id];
         }
 
-        mAnalogSignals[id] = s;
+        mAnalogSignals[id] = s; ////IL FAUT RECUPERER LE SIGNAL ICI
+        mSelfmixedSignals[id]= s;
         mEndSampleIdx = s->size()-1;
         qDebug("A%d: %d samples", id, s->size());
     }

@@ -57,7 +57,6 @@ private slots:
 
 private:
 
-
     enum PrivateConstants {
         NumDivs = 10,
         DistanceBetweenArea = 4,

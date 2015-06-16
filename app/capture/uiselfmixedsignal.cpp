@@ -138,7 +138,7 @@ void UiSelfmixedSignalPrivate::setup(SelfmixedSignal* signal, UiSelfmixedSignal*
     mColorLbl->show();
 
     mIdLbl = new QLabel(parent);
-    mIdLbl->setText(QString("Self mixing signal %1").arg(signal->id()));
+    mIdLbl->setText(QString("SM %1").arg(signal->id()));
     mIdLbl->show();
 
     // Deallocation: Destructor

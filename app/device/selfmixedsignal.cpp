@@ -28,7 +28,7 @@ SelfmixedSignal::SelfmixedSignal()
     //mUsage     = SelfmixedUsageGenerate;
     //mReconfigureListener = NULL;
     mId        = 0;
-    mName      = QString("Selfmixed %1").arg(0);
+    mName      = QString("SM %1").arg(0);
 
     mTriggerState = SelfmixedTriggerNone;
     mCoupling     = CouplingDc;

@@ -577,11 +577,8 @@ bool UiMainWindow::warnedAboutActiveState(QString action)
         QMessageBox::warning(this,
                              "Stop ongoing action!",
                              msg);
-
-
         return true;
     }
-
     return false;
 }
 
@@ -788,7 +785,7 @@ void UiMainWindow::about()
     msg.append("<h2>About ");
     msg.append(QCoreApplication::applicationName());
     msg.append("</h2>");
-    msg.append(QString("Version %1<br><br>").arg(progVer));
+    msg.append(QString("Version %1 niark niark").arg(progVer));
     msg.append("Built on ");
     msg.append(QString("%1").arg(__DATE__));
     msg.append(" at ");
@@ -803,8 +800,8 @@ void UiMainWindow::about()
     msg.append("</a>");
     msg.append("<br><br>");
 
-    QString url = "http://www.embeddedartists.com/products/app/labtool.php";
-    msg.append(QString("User's Guide available on product page: <a href=\"%1\">%2</a>").arg(url).arg(url));
+    QString url = "woooooooooooooooooooooooow";
+    msg.append(QString("No guide available hahahahaha").arg(url).arg(url));
     msg.append("<br><br>");
 
     msg.append("2015 ");
