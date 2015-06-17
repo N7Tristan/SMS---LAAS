@@ -1258,7 +1258,7 @@ void LabToolCaptureDevice::setDigitalData(int signalId, QVector<int> data)
     }
 }
 
-QVector<double>*  traitement(QVector<double>* s) {
+/*QVector<double>*  traitement(QVector<double>* s) {
 
     QVector<double>* buffer = NULL;
     buffer = s;
@@ -1271,6 +1271,251 @@ QVector<double>*  traitement(QVector<double>* s) {
         data_buff[i]=data[i]/3;
     }
     return buffer;
+}*/
+
+
+
+
+QVector<double>*  traitement(QVector<double>* s) {
+
+    QVector<double>* buffer = NULL;
+
+    buffer = s;
+
+    int taille = s->size();
+
+    double *data = s->data();
+    double *data_buff = s->data();
+
+
+    float max_A = -1;
+    float min_A = 1;
+    float Gain = 1;
+
+    float min1 = 1;
+    float min2 = 1;
+    float min1_memoire1=1;
+    float min2_memoire1=1;
+    float min1_memoire2=1;
+    float min2_memoire2=1;
+
+    float max1=-1;
+    float max2=-1;
+    int j=0;
+
+    float cpt_max=0;
+    float cpt_min=0;
+
+    float *signal;
+        signal = new float[taille];
+
+    float *reconstitution;
+        reconstitution = new float[taille];
+
+    float *frange;
+        frange = new float[taille];
+
+    float *signal_filtre;
+        signal_filtre = new float[taille];
+
+    float sens_precedent = 0;
+
+    float seuil = 0.1;
+
+    float sens;
+    float Amplitude;
+    float mrf;
+
+    float *vecteur;
+        vecteur = new float[taille];
+
+    float *amplitude;
+        amplitude = new float[taille];
+
+    float *gain;
+        gain = new float[taille];
+
+    float *mrff;
+        mrff = new float[taille];
+
+
+    float *max11;
+        max11 = new float[taille];
+    float *min11;
+        min11 = new float[taille];
+    float *min11_memoire1;
+        min11_memoire1 = new float[taille];
+    float *min11_memoire2;
+        min11_memoire2 = new float[taille];
+    float *min22_memoire1;
+        min22_memoire1 = new float[taille];
+    float *min22_memoire2;
+        min22_memoire2 = new float[taille];
+    float *min22;
+        min22 = new float[taille];
+    float *max22;
+        max22 = new float[taille];
+
+
+    for (int i=1; i<taille-2; i++)
+    {
+        vecteur[i] = Gain * vecteur[i];
+
+        if(vecteur[i] > vecteur[i-1])
+        {
+            if(max_A < vecteur[i])
+            {
+                max_A = vecteur[i];
+            }
+        }
+
+        else if(vecteur[i] < vecteur[i-1])
+        {
+            if(min_A > vecteur[i])
+            {
+                min_A = vecteur[i];
+            }
+        }
+
+
+        if(i%30000 == 0)
+                {
+                    Amplitude=(max_A-min_A)/Gain;
+                    amplitude[i]=Amplitude;
+                    Gain=1/Amplitude;
+                    gain[i]=Gain;
+                    seuil=0.25;
+                    mrf=min1-min2;
+                    j=j+1;
+                    mrff[j]=mrf;
+                    max_A=-1;
+                    min_A=1;
+                    min1=1;
+                    min2=1;
+                    max1=-1;
+                    max2=-1;
+                }
+
+
+        if(vecteur[i] - vecteur[i-1] > seuil)
+                {
+                    frange[i]=-1;
+
+                    if(min2>vecteur[i-1])
+                    {
+                        min2=vecteur[i-1];
+                    }
+                }
+
+                else if(vecteur[i] - vecteur[i-1] < (-1)*seuil)
+                {
+                    frange[i]=1;
+
+                    if(min1>vecteur[i])
+                    {
+                        min1=vecteur[i];
+                    }
+                }
+
+                else
+                {
+                    frange[i]=0;
+                }
+
+
+                if(frange[i]==-1)
+                    sens=-1;
+                else if(frange[i]==1)
+                    sens=1;
+                else
+                    sens=sens_precedent;
+
+
+                if(frange[i-1]==-1 && frange[i]==0)
+                {
+                    cpt_min=cpt_min+1;
+                    reconstitution[i]=cpt_max-cpt_min;
+                }
+                else if(frange[i-1]==1 && frange[i]==0)
+                {
+                    cpt_max=cpt_max+1;
+                    reconstitution[i]=cpt_max-cpt_min;
+                }
+
+                else
+                    reconstitution[i]=reconstitution[i-1];
+
+
+                max11[i]=max1;
+                min11[i]=min1;
+                min11_memoire1[i]=min1_memoire1;
+                min11_memoire2[i]=min1_memoire2;
+                min22_memoire1[i]=min2_memoire1;
+                min22_memoire2[i]=min2_memoire2;
+                min22[i]=min2;
+                max22[i]=max2;
+
+
+                sens_precedent=sens;
+                signal[i] = vecteur[i] + reconstitution[i];
+
+
+
+                int k = 0;
+
+
+                if(i>30)
+                {
+                    for(k=0; k<30; k++)
+                    {
+                        signal_filtre[i] = signal_filtre[i]+0.0333*signal[i-k];
+                    }
+                }
+
+
+            }
+
+    delete[] vecteur;
+    delete[] amplitude;
+    delete[] gain;
+    delete[] mrff;
+    delete[] frange;
+    delete[] reconstitution;
+    delete[] max11;
+    delete[] min11;
+    delete[] min11_memoire1;
+    delete[] min11_memoire2;
+    delete[] min22_memoire1;
+    delete[] min22_memoire2;
+    delete[] min22;
+    delete[] max22;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    return buffer;
 }
 
 QVector<double>* LabToolCaptureDevice::analogData(int signalId)
@@ -1280,8 +1525,6 @@ QVector<double>* LabToolCaptureDevice::analogData(int signalId)
 
     if (signalId < MaxAnalogSignals) {
         data = mAnalogSignals[signalId];
-
-        data = traitement(*mAnalogSignals);
     }
     return data;
 }
@@ -1313,6 +1556,8 @@ QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId) // A quoi ser
 
     if (signalId < MaxSelfmixedSignals) {
         data = mSelfmixedSignals[signalId];
+
+        data = traitement(*mAnalogSignals);
     }
     return data;
 }
