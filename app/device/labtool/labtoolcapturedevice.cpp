@@ -1258,6 +1258,21 @@ void LabToolCaptureDevice::setDigitalData(int signalId, QVector<int> data)
     }
 }
 
+QVector<double>*  traitement(QVector<double>* s) {
+
+    QVector<double>* buffer = NULL;
+    buffer = s;
+    int size = s->size();
+    double *data = s->data();
+    double *data_buff = s->data();
+
+
+    for (int i; i<size; i++ ){
+        data_buff[i]=data[i]/3;
+    }
+    return buffer;
+}
+
 QVector<double>* LabToolCaptureDevice::analogData(int signalId)
 {
     qDebug("analogData");
@@ -1265,8 +1280,9 @@ QVector<double>* LabToolCaptureDevice::analogData(int signalId)
 
     if (signalId < MaxAnalogSignals) {
         data = mAnalogSignals[signalId];
-    }
 
+        data = traitement(*mAnalogSignals);
+    }
     return data;
 }
 
