@@ -247,6 +247,11 @@ LabToolCaptureDevice::LabToolCaptureDevice(QObject *parent) :
         mAnalogSignals[i] = NULL;
         mAnalogSignalData[i] = NULL;
     }
+
+    for (int i = 0; i < MaxSelfmixedSignals; i++) {
+        mSelfmixedSignals[i] = NULL;
+        mSelfmixedSignalData[i] = NULL;
+    }
 }
 
 /*!
@@ -279,6 +284,15 @@ LabToolCaptureDevice::~LabToolCaptureDevice()
             delete mDigitalSignalTransitions[i];
         }
     }
+/*
+    for (int i = 0; i < MaxSelfmixedSignals; i++) {
+        if (mSelfmixedSignals[i] != NULL) {
+            delete mSelfmixedSignals[i];
+        }
+        if (mSelfmixedSignalTransitions[i] != NULL) {
+            delete mSelfmixedSignalTransitions[i];
+        }
+    }*/
 
     delete mTriggerConfig;
 }
@@ -1086,7 +1100,6 @@ void LabToolCaptureDevice::convertAnalogInput(const quint8 *pData, quint32 size,
 {
     (void)trig; // To avoid warning
     if (mAnalogSignalList.isEmpty()) {
-        // nothing to do
         return;
     }
     unpackAnalogInput(pData, size, activeChannels);
@@ -1112,9 +1125,6 @@ void LabToolCaptureDevice::convertAnalogInput(const quint8 *pData, quint32 size,
             trimSignalData(mAnalogSignalData[id], signalTrim, false);
         }
 
-        // Deallocation:
-        //   QVector will be deallocated either by this function or the destructor
-        //   as a part of deallocating mAnalogSignals
         QVector<double> *s = new QVector<double>();
 
         for (int j = 0; j < mAnalogSignalData[id]->size(); j++)
@@ -1157,7 +1167,12 @@ void LabToolCaptureDevice::convertAnalogInput(const quint8 *pData, quint32 size,
         }
 
         mAnalogSignals[id] = s; ////IL FAUT RECUPERER LE SIGNAL ICI
-        mSelfmixedSignals[id]= s;
+
+        foreach(SelfmixedSignal* signal, mSelfmixedSignalList){
+            int id = signal->id();
+            mSelfmixedSignals[id] =s;
+
+        }
         mEndSampleIdx = s->size()-1;
         qDebug("A%d: %d samples", id, s->size());
     }
@@ -1280,9 +1295,9 @@ QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId) // A quoi ser
     qDebug("goes here selfmixedData");
     QVector<double>* data = NULL;
 
-    //if (signalId < MaxSelfmixedSignals) {
-      //  data = mSelfmixedSignals[signalId];
-    //}
+    if (signalId < MaxSelfmixedSignals) {
+        data = mSelfmixedSignals[signalId];
+    }
     return data;
 }
 
@@ -1489,7 +1504,14 @@ void LabToolCaptureDevice::handleReceivedSamples(LabToolDeviceTransfer* transfer
 
         convertDigitalInput(transfer->data(), size-analogSize, digitalChannelInfo, trigger, digitalTrigSample, signalTrim);
         convertAnalogInput(transfer->data()+analogOffset, analogSize, analogChannelInfo, trigger, analogTrigSample, signalTrim);
-        qDebug() << "Got " << size << "bytes with samples";
+        //////Actualisation du signal selfmixed ////////
+        /*foreach(SelfmixedSignal* signal, mSelfmixedSignalList) {
+            foreach(SelfmixedSignal* signal, mSelfmixedSignalList){
+                int id = signal->id();
+                mSelfmixedSignals[id]= mAnalogSignals[id];
+            }
+        }*/
+        //qDebug() << "Got " << size << "bytes with samples";
         //qDebug() << "Digital trigger at " << digitalTrigSample << ", analog at " << analogTrigSample;
 
         mRunningCapture = false;
@@ -1792,4 +1814,5 @@ void LabToolCaptureDevice::updateAnalogConfigData()
 
 void LabToolCaptureDevice::updateSelfmixedConfigData()
 {
+
 }

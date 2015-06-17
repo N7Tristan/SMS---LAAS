@@ -207,7 +207,6 @@ void SignalManager::loadSignalsFromSettings(QSettings &settings, QDataStream &in
                 addAnalyzer(analyzer);
             }
         }
-
     }
     settings.endArray();
 
@@ -246,9 +245,6 @@ void SignalManager::loadSignalsFromSettings(QSettings &settings, QDataStream &in
                 device->setAnalogData(id, analogData);
                 analogData.clear();
             }
-
-
-
         } while (!in.atEnd());
     }
 
@@ -401,38 +397,6 @@ double SignalManager::closestDigitalTransition(double startTime)
     }
     return closestTime;
 }
-
-/*!
-    \fn void SignalManager::signalsAdded()
-
-    This signal is emitted when a signal has been added.
-*/
-
-/*!
-    \fn void SignalManager::signalsRemoved()
-
-    This signal is emitted when a signal has been removed.
-*/
-
-/*!
-    \fn void SignalManager::digitalMeasurmentChanged(double start, double mid, double end, bool highLow, bool mActive)
-
-    This signal is emitted when a measurement related to a digital signal has
-    occured. The measurement is related to one period closest to where the user
-    holds the mouse cursor.
-*/
-
-/*!
-    \fn void SignalManager::analogMeasurmentChanged(QList<double>level, QList<double>pk, bool active)
-
-    This signal is emitted when a measurement related to an analog signal has
-    occured. The measurement is related to the analog signal value for each
-    analog signalwhere the user holds the mouse cursor.
-
-    The parameter \a level contains the analog level for each analog signal.
-    The parameter \a pk contains peak-to-peak calculations for each
-    analog signal. The paramter \a active is true if the measurement is active.
-*/
 
 
 /*!
