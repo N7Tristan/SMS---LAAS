@@ -1267,7 +1267,7 @@ void LabToolCaptureDevice::setDigitalData(int signalId, QVector<int> data)
     double *data_buff = s->data();
 
 
-    for (int i; i<size; i++ ){
+    for (int i=0; i<size; i++ ){
         data_buff[i]=data[i]/3;
     }
     return buffer;
@@ -1315,8 +1315,8 @@ QVector<double>*  traitement(QVector<double>* s) {
     float *frange;
         frange = new float[taille];
 
-    float *signal_filtre;
-        signal_filtre = new float[taille];
+    double *signal_filtre;
+        signal_filtre = new double[taille];
 
     float sens_precedent = 0;
 
@@ -1325,9 +1325,6 @@ QVector<double>*  traitement(QVector<double>* s) {
     float sens;
     float Amplitude;
     float mrf;
-
-    float *vecteur;
-        vecteur = new float[taille];
 
     float *amplitude;
         amplitude = new float[taille];
@@ -1359,21 +1356,21 @@ QVector<double>*  traitement(QVector<double>* s) {
 
     for (int i=1; i<taille-2; i++)
     {
-        vecteur[i] = Gain * vecteur[i];
+        data[i] = Gain * data[i];
 
-        if(vecteur[i] > vecteur[i-1])
+        if(data[i] > data[i-1])
         {
-            if(max_A < vecteur[i])
+            if(max_A < data[i])
             {
-                max_A = vecteur[i];
+                max_A = data[i];
             }
         }
 
-        else if(vecteur[i] < vecteur[i-1])
+        else if(data[i] < data[i-1])
         {
-            if(min_A > vecteur[i])
+            if(min_A > data[i])
             {
-                min_A = vecteur[i];
+                min_A = data[i];
             }
         }
 
@@ -1397,23 +1394,23 @@ QVector<double>*  traitement(QVector<double>* s) {
                 }
 
 
-        if(vecteur[i] - vecteur[i-1] > seuil)
+        if(data[i] - data[i-1] > seuil)
                 {
                     frange[i]=-1;
 
-                    if(min2>vecteur[i-1])
+                    if(min2>data[i-1])
                     {
-                        min2=vecteur[i-1];
+                        min2=data[i-1];
                     }
                 }
 
-                else if(vecteur[i] - vecteur[i-1] < (-1)*seuil)
+                else if(data[i] - data[i-1] < (-1)*seuil)
                 {
                     frange[i]=1;
 
-                    if(min1>vecteur[i])
+                    if(min1>data[i])
                     {
-                        min1=vecteur[i];
+                        min1=data[i];
                     }
                 }
 
@@ -1457,25 +1454,26 @@ QVector<double>*  traitement(QVector<double>* s) {
 
 
                 sens_precedent=sens;
-                signal[i] = vecteur[i] + reconstitution[i];
+                //signal[i] = data[i] + reconstitution[i];
 
-
+                data_buff[i] = data[i] + reconstitution[i];
 
                 int k = 0;
 
 
-                if(i>30)
+                /*if(i>30)
                 {
                     for(k=0; k<30; k++)
                     {
-                        signal_filtre[i] = signal_filtre[i]+0.0333*signal[i-k];
+                        data_buff[i] = (signal_filtre[i]+0.0333*signal[i-k]);
                     }
-                }
+                }*/
 
 
             }
 
-    delete[] vecteur;
+
+
     delete[] amplitude;
     delete[] gain;
     delete[] mrff;
@@ -1489,30 +1487,6 @@ QVector<double>*  traitement(QVector<double>* s) {
     delete[] min22_memoire2;
     delete[] min22;
     delete[] max22;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     return buffer;
