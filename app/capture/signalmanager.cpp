@@ -199,6 +199,27 @@ void SignalManager::loadSignalsFromSettings(QSettings &settings, QDataStream &in
                 addAnalogSignal(signal);
 
             } while(false);
+        }
+            else if (meta.contains("Selfmixed;")) {
+
+                SelfmixedSignal tmp = SelfmixedSignal::fromSettingsString(meta);
+
+                do {
+
+                    SelfmixedSignal* signal = device->addSelfmixedSignal(tmp.id());
+                    if (signal == NULL) break;
+
+                    // copy loaded settings
+                    *signal = tmp;
+
+                    // when loading digital signal from settings file the
+                    // reconfigure listener will be NULL. Copying tmp to signal
+                    // will then also set the listener to NULL in signal.
+                    // Set the listener explicitly below.
+                    signal->setReconfigureListener(device);
+                    addSelfmixedSignal(signal);
+
+                } while(false);
 
         }
         else {
