@@ -1299,7 +1299,6 @@ QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId) // A quoi ser
 
     if (signalId < MaxSelfmixedSignals) {
         data = mSelfmixedSignals[signalId];
-
         data = traitement(*mAnalogSignals);
     }
     return data;

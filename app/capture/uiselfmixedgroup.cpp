@@ -22,6 +22,9 @@ UiSelfmixedGroup::UiSelfmixedGroup(QWidget *parent) :
     setupLabels();
 }
 
+
+
+
 /*!
     Sets the number of Selfmixed signals that are used by the application.
 */

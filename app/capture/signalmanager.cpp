@@ -112,6 +112,7 @@ void SignalManager::saveSignalSettings(QSettings &settings, QDataStream &out)
         }
 
         qDebug("qobject_cast");
+
         UiSelfmixedSignal* ms = qobject_cast<UiSelfmixedSignal*>(s);
         if (as != NULL) {
             QList<SelfmixedSignal*> list = ms->addedSignals();

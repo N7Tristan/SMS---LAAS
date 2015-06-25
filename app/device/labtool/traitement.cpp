@@ -1,5 +1,9 @@
 
 #include "traitement.h"
+#include <math.h>
+
+#define PI 3.14159265
+
 
 QVector<double>*  traitement(QVector<double>* s)
 {
@@ -12,8 +16,7 @@ QVector<double>*  traitement(QVector<double>* s)
 
     double *data = s->data();
 
-    double *data_mod;
-    data_mod = new double[taille];
+
 
     double *data_buff = buffer->data();
 
@@ -24,7 +27,17 @@ QVector<double>*  traitement(QVector<double>* s)
     double Gain = 0;
 
 
-    double *diffDataMod;
+    double *dataNorm;
+    dataNorm = new double[taille];
+
+    double *dataNormAcos;
+    dataNormAcos = new double[taille];
+
+    double *diffDataNormAcos;
+    diffDataNormAcos = new double[taille];
+
+
+    /*double *diffDataMod;
     diffDataMod = new double[taille];
 
     double *vectDiffDataMod;
@@ -40,12 +53,25 @@ QVector<double>*  traitement(QVector<double>* s)
     signal = new double[taille];
 
 
+    double *signalReconstruit;
+    signalReconstruit = new double[taille];
 
+    double *signalPB;
+    signalPB = new double[taille];
+
+    double *signalPH;
+    signalPH = new double[taille];*/
+
+
+    
     // //////////////////////////////////////////////////// //
     // Detection du min et du max du signal pour normaliser //
     // //////////////////////////////////////////////////// //
 
-    for (unsigned int i=1; i<taille-2; i++)
+    min_A = data[0];
+    max_A = data[0];
+
+    for (unsigned int i=1; i<taille; i++)
     {
         if(data[i] > data[i-1])
         {
@@ -64,22 +90,11 @@ QVector<double>*  traitement(QVector<double>* s)
         }
     }
 
-    Gain = 1/(max_A-min_A);
+    Gain = 2/(max_A-min_A); // Amplitude entre -1 et 1
 
-    for (unsigned int i=1; i<taille-2; i++)
+    for (unsigned int i=0; i<taille; i++)
     {
-
-        if(i>30)
-        {
-            for(int k = 0; k<30; k++)
-            {
-            data_mod[i] = Gain*data[i] + 0.0333 * Gain * data[k];
-            }
-        }
-
-        else
-            data_mod[i] = Gain * data[i];
-
+        dataNorm[i] = Gain * data[i];
     }
 
     // //////////////////////////////////////////////////// //
@@ -87,8 +102,61 @@ QVector<double>*  traitement(QVector<double>* s)
 
 
 
-    unsigned int dt = 20;
-    double gainDiff = 2;
+    // //////////////////////////////////////////////////// //
+    // //// Arccosinus --> estimation de la phase [pi] //// //
+    // //////////////////////////////////////////////////// //
+
+    diffDataNormAcos[0] = diffDataNormAcos[1];
+    data_buff[0] = data_buff[1];
+
+    for (unsigned int i=1; i<taille; i++)
+    {
+        dataNormAcos[i] = acos(dataNorm[i]);
+
+        diffDataNormAcos[i] = dataNormAcos[i] - dataNormAcos[i-1];
+
+        data_buff[i] = 4 * diffDataNormAcos[i];
+    }
+
+    // //////////////////////////////////////////////////// //
+    // //////////////////////////////////////////////////// //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*unsigned int dt = 20;
+    double gain = 2;
 
     for (unsigned int i=1+dt; i<taille-(dt+1); i++)
     {
@@ -97,18 +165,20 @@ QVector<double>*  traitement(QVector<double>* s)
 
         if(diffDataMod[i]>diffDataMod[i-dt] && diffDataMod[i]>diffDataMod[i+dt])
         {
-            vectDiffDataMod[i] = gainDiff*diffDataMod[i];
+            vectDiffDataMod[i] = gain*diffDataMod[i];
         }
 
         else if(diffDataMod[i]<diffDataMod[i-dt] && diffDataMod[i]<diffDataMod[i+dt])
         {
-            vectDiffDataMod[i] = gainDiff*diffDataMod[i];
+            vectDiffDataMod[i] = gain*diffDataMod[i];
         }
 
         else
         {
             vectDiffDataMod[i] = 0;
         }
+
+        //data_buff[i]=vectDiffDataMod[i];
     }
 
 
@@ -176,8 +246,14 @@ QVector<double>*  traitement(QVector<double>* s)
 
     for (unsigned int i=1; i<taille-2; i++)
     {
-        data_buff[i] = signal[i] - moy/(taille-2);
-    }
+        signalReconstruit[i] = signal[i] - signal[i-1];
+
+        signalPB[i] = signalReconstruit[i] + signalReconstruit[i-1];
+        signalPH[i] = signalReconstruit[i] - signalPB[i];
+    }*/
+
+
+
 
 
     return buffer;
